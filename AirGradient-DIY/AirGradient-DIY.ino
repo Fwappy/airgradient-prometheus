@@ -127,6 +127,17 @@ String GenerateMetrics() {
     message += "\n";
   }
 
+  if (hasPM) {
+    int stat = ag.getPM2_Raw();
+
+    message += "# HELP pm02 Particulate Matter PM2.5 raw value\n";
+    message += "# TYPE pm02 gauge\n";
+    message += "pm02";
+    message += idString;
+    message += String(stat);
+    message += "\n";
+  }
+  
   if (hasCO2) {
     int stat = ag.getCO2_Raw();
 
