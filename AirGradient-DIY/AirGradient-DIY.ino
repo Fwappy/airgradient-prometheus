@@ -123,7 +123,7 @@ String GenerateMetrics() {
     message += "# TYPE pm02 gauge\n";
     message += "pm02";
     message += idString;
-    message += String(stat);
+    message += String(PM_TO_AQI_US(stat));
     message += "\n";
   }
 
@@ -199,7 +199,7 @@ void updateScreen(long now) {
       case 0:
         if (hasPM) {
           int stat = ag.getPM2_Raw();
-          showTextRectangle("PM2",String(stat),false);
+          showTextRectangle("AQI",String(PM_TO_AQI_US(stat)),false);
         }
         break;
       case 1:
@@ -211,18 +211,24 @@ void updateScreen(long now) {
       case 2:
         if (hasSHT) {
           TMP_RH stat = ag.periodicFetchData();
-          showTextRectangle("TMP", String(stat.t, 1) + "C", false);
-        }
-        break;
-      case 3:
-        if (hasSHT) {
-          TMP_RH stat = ag.periodicFetchData();
-          showTextRectangle("HUM", String(stat.rh) + "%", false);
+          showTextRectangle(String(stat.t*9/5+32, 1) + "F", String(stat.rh) + "%", false);
         }
         break;
     }
     counter++;
-    if (counter > 3) counter = 0;
+    if (counter > 2) counter = 0;
     lastUpdate = millis();
   }
 }
+
+// Calculate PM2.5 US AQI
+int PM_TO_AQI_US(int pm02) {
+  if (pm02 <= 12.0) return ((50 - 0) / (12.0 - .0) * (pm02 - .0) + 0);
+  else if (pm02 <= 35.4) return ((100 - 50) / (35.4 - 12.0) * (pm02 - 12.0) + 50);
+  else if (pm02 <= 55.4) return ((150 - 100) / (55.4 - 35.4) * (pm02 - 35.4) + 100);
+  else if (pm02 <= 150.4) return ((200 - 150) / (150.4 - 55.4) * (pm02 - 55.4) + 150);
+  else if (pm02 <= 250.4) return ((300 - 200) / (250.4 - 150.4) * (pm02 - 150.4) + 200);
+  else if (pm02 <= 350.4) return ((400 - 300) / (350.4 - 250.4) * (pm02 - 250.4) + 300);
+  else if (pm02 <= 500.4) return ((500 - 400) / (500.4 - 350.4) * (pm02 - 350.4) + 400);
+  else return 500;
+};
