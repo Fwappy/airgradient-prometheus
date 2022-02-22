@@ -121,7 +121,7 @@ String GenerateMetrics() {
 
     message += "# HELP pm02 Particulate Matter PM2.5 value\n";
     message += "# TYPE pm02 gauge\n";
-    message += "pm02";
+    message += "ag_pm02";
     message += idString;
     message += String(PM_TO_AQI_US(stat));
     message += "\n";
@@ -132,7 +132,7 @@ String GenerateMetrics() {
 
     message += "# HELP pm02 Particulate Matter PM2.5 raw value\n";
     message += "# TYPE pm02 gauge\n";
-    message += "pm02";
+    message += "ag_pm02_raw";
     message += idString;
     message += String(stat);
     message += "\n";
@@ -143,7 +143,7 @@ String GenerateMetrics() {
 
     message += "# HELP rco2 CO2 value, in ppm\n";
     message += "# TYPE rco2 gauge\n";
-    message += "rco2";
+    message += "ag_rco2";
     message += idString;
     message += String(stat);
     message += "\n";
@@ -152,16 +152,16 @@ String GenerateMetrics() {
   if (hasSHT) {
     TMP_RH stat = ag.periodicFetchData();
 
-    message += "# HELP atmp Temperature, in degrees Celsius\n";
-    message += "# TYPE atmp gauge\n";
-    message += "atmp";
+    message += "# HELP tmp Temperature, in degrees Celsius\n";
+    message += "# TYPE tmp gauge\n";
+    message += "ag_tmp";
     message += idString;
     message += String(stat.t);
     message += "\n";
 
-    message += "# HELP rhum Relative humidity, in percent\n";
-    message += "# TYPE rhum gauge\n";
-    message += "rhum";
+    message += "# HELP hum Relative humidity, in percent\n";
+    message += "# TYPE hum gauge\n";
+    message += "ag_hum";
     message += idString;
     message += String(stat.rh);
     message += "\n";
