@@ -53,7 +53,6 @@ void setup() {
 
   // Init Display.
   display.init();
-  display.flipScreenVertically();
   showTextRectangle("Init", String(ESP.getChipId(),HEX),true);
 
   // Enable enabled sensors.
