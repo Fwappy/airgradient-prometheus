@@ -37,7 +37,7 @@ IPAddress subnet(255, 255, 255, 0);
 #endif
 
 // The frequency of measurement updates.
-const int updateFrequency = 5000;
+const int updateFrequency = 3000;
 
 // For housekeeping.
 long lastUpdate;
