@@ -197,8 +197,8 @@ void showTextRectangle(String ln1, String ln2, boolean small) {
   } else {
     display.setFont(ArialMT_Plain_24);
   }
-  display.drawString(32, 16, ln1);
-  display.drawString(32, 36, ln2);
+  display.drawString(32, 0, ln1);
+  display.drawString(32, 20, ln2);
   display.display();
 }
 
